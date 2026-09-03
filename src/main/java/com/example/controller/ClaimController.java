@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/claims")
@@ -34,5 +36,11 @@ public class ClaimController {
         Claim createdClaim = claimService.createClaim(request);
         return ResponseEntity.status(201).body(createdClaim);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Claim>> getAllClaims() {
+        List<Claim> claims = claimService.getAllClaims();
+        return ResponseEntity.ok(claims);
     }
 }
