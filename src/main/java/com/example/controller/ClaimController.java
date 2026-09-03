@@ -41,6 +41,7 @@ public class ClaimController {
     @GetMapping
     public ResponseEntity<List<Claim>> getAllClaims() {
         List<Claim> claims = claimService.getAllClaims();
+        System.out.println("Testing git stash");
         return ResponseEntity.ok(claims);
     }
 }
