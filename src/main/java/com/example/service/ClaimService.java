@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -60,5 +62,9 @@ public class ClaimService {
 
         return claim;
 
+    }
+
+    public List<Claim> getAllClaims() {
+        return new ArrayList<>(claims.values());
     }
 }
