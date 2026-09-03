@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.Claim;
+import com.example.model.ClaimCreateRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Service
 public class ClaimService {
+    private int claimSequence = 100555;
     private final Map<String, Claim> claims = new HashMap<>();
 
     public ClaimService() {
@@ -38,5 +40,25 @@ public class ClaimService {
 
     public Claim getClaimById(String claimId) {
         return claims.get(claimId);
+    }
+
+
+    public Claim createClaim(ClaimCreateRequest request) {
+
+        String claimId = "CLM-" + claimSequence++;
+
+        Claim claim = new Claim(
+                claimId,
+                request.getPolicyNumber(),
+                "OPEN",
+                request.getLossDate(),
+                request.getClaimAmount(),
+                request.getDescription()
+        );
+
+        claims.put(claimId, claim);
+
+        return claim;
+
     }
 }

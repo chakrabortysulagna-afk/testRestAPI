@@ -1,12 +1,11 @@
 package com.example.controller;
 
 import com.example.model.Claim;
+import com.example.model.ClaimCreateRequest;
 import com.example.service.ClaimService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -26,5 +25,14 @@ public class ClaimController {
                 return ResponseEntity.notFound().build();
             }
         return ResponseEntity.ok(claim);
+    }
+
+    // POST /claims
+    @PostMapping
+    //public ResponseEntity<Claim> createClaim(@RequestBody ClaimCreateRequest request) {
+    public ResponseEntity<Claim> createClaim(@Valid @RequestBody ClaimCreateRequest request) {
+        Claim createdClaim = claimService.createClaim(request);
+        return ResponseEntity.status(201).body(createdClaim);
+
     }
 }
