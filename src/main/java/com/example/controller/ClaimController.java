@@ -20,6 +20,14 @@ public class ClaimController {
         this.claimService = claimService;
     }
 
+    @GetMapping("circuitBreakerTest/{claimId}")
+
+    public String getClaim(@PathVariable String claimId) {
+
+        return claimService.getClaim(claimId);
+
+    }
+
     @GetMapping("/{claimId}")
     public ResponseEntity<Claim> getClaimById(@PathVariable String claimId) {
             Claim claim = claimService.getClaimById(claimId);
@@ -41,6 +49,7 @@ public class ClaimController {
     @GetMapping
     public ResponseEntity<List<Claim>> getAllClaims() {
         List<Claim> claims = claimService.getAllClaims();
+        System.out.println("Testing git stash");
         return ResponseEntity.ok(claims);
     }
 }

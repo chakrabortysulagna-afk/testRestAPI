@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: testRestAPI
+
+server:
+  port: 8080
+
+resilience4j:
+  circuitbreaker:
+    instances:
+
+      claimService:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10 #it tracks the success or failure based on the most recent "COUNT_BASED" requests.
+        minimumNumberOfCalls: 5 #The circuit breaker won’t calculate the failure rate until it has at least 5 calls.
+        failureRateThreshold: 50 #If at least 50% of those calls should fail
+        waitDurationInOpenState: 10s #CircuitBreaker must wait in the open state before switching to the half-open state.
+        permittedNumberOfCallsInHalfOpenState: 3 #defines how many trial requests a Resilience4j circuit breaker allows through when it is in the HALF_OPEN state
+        slowCallRateThreshold: 50 #sets a percentage limit for slow requests that causes a circuit breaker to open and block future traffic
+        slowCallDurationThreshold: 2s # sets the time limit above which a completed call is officially flagged as "slow"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+  endpoint:
+    health:
+      show-details: always
