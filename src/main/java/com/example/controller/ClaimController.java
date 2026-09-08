@@ -20,6 +20,14 @@ public class ClaimController {
         this.claimService = claimService;
     }
 
+    @GetMapping("circuitBreakerTest/{claimId}")
+
+    public String getClaim(@PathVariable String claimId) {
+
+        return claimService.getClaim(claimId);
+
+    }
+
     @GetMapping("/{claimId}")
     public ResponseEntity<Claim> getClaimById(@PathVariable String claimId) {
             Claim claim = claimService.getClaimById(claimId);
